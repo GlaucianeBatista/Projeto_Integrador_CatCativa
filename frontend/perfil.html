@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Catbook</title>
+    <meta name="description" content="Perfil do usuário no Catbook. Veja histórias, estatísticas e conquistas.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/perfil.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="coisas/images/logo.png">
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="coisas/images/logo.png" alt="Catbook Logo">
+            </div>
+            Catbook
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="explorar.html">Explorar</a></li>
+            <li><a href="perfil.html" class="active">Perfil</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-secondary">Entrar</a>
+            <a href="login.html#cadastro" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Profile Header -->
+        <section class="profile-header">
+            <div class="profile-cover"></div>
+            <div class="profile-info">
+                <!-- Profile info will be loaded dynamically -->
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar">👤</div>
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name">Carregando...</h1>
+                    <p class="profile-username">@usuario</p>
+                    <p class="profile-bio">Carregando bio...</p>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">0</div>
+                            <div class="profile-stat-label">Seguidores</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">0</div>
+                            <div class="profile-stat-label">Seguindo</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">0</div>
+                            <div class="profile-stat-label">Histórias</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">0</div>
+                            <div class="profile-stat-label">Curtidas</div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary">Editar Perfil</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Tabs -->
+        <div class="profile-tabs">
+            <button class="profile-tab active" data-tab="historias">
+                📚 Histórias <span class="profile-tab-badge">0</span>
+            </button>
+            <button class="profile-tab" data-tab="estatisticas">
+                📊 Estatísticas
+            </button>
+            <button class="profile-tab" data-tab="figurinhas">
+                🎨 Figurinhas
+            </button>
+            <button class="profile-tab" data-tab="sobre">
+                ℹ️ Sobre
+            </button>
+            <button class="profile-tab" data-tab="seguidores">
+                👥 Seguidores
+            </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="profile-content active" data-content="historias">
+            <!-- Stories will be loaded dynamically -->
+            <div class="text-center" style="padding: 60px; color: var(--blue-gray);">
+                <p style="font-size: 60px; margin-bottom: 20px;">📚</p>
+                <h3 style="margin-bottom: 10px;">Carregando histórias...</h3>
+            </div>
+        </div>
+
+        <div class="profile-content" data-content="estatisticas">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon">📚</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Total de Histórias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">👁</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Visualizações</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">❤️</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Curtidas Recebidas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">💬</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Comentários</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">⭐</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Média de Avaliação</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">✅</div>
+                    <div class="stat-card-value">0</div>
+                    <div class="stat-card-label">Histórias Completas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content" data-content="figurinhas">
+            <div class="stickers-section">
+                <div class="stickers-header">
+                    <h3 style="font-family: 'Quicksand', sans-serif; font-weight: 700;">
+                        Minhas Figurinhas
+                    </h3>
+                    <button class="btn btn-primary btn-sm">🎁 Desbloquear Nova</button>
+                </div>
+                <div class="stickers-grid">
+                    <!-- Stickers will be loaded dynamically -->
+                    <div class="sticker-item sticker-locked">
+                        <div class="sticker-icon">🐱</div>
+                        <div class="sticker-name">Gatinho</div>
+                    </div>
+                    <div class="sticker-item sticker-locked">
+                        <div class="sticker-icon">❤️</div>
+                        <div class="sticker-name">Coração</div>
+                    </div>
+                    <div class="sticker-item sticker-locked">
+                        <div class="sticker-icon">⭐</div>
+                        <div class="sticker-name">Estrela</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content" data-content="sobre">
+            <div class="about-section">
+                <div class="about-item">
+                    <div class="about-icon">📧</div>
+                    <div class="about-content">
+                        <h4>Email</h4>
+                        <p>Carregando...</p>
+                    </div>
+                </div>
+                <div class="about-item">
+                    <div class="about-icon">📅</div>
+                    <div class="about-content">
+                        <h4>Membro desde</h4>
+                        <p>Carregando...</p>
+                    </div>
+                </div>
+                <div class="about-item">
+                    <div class="about-icon">📝</div>
+                    <div class="about-content">
+                        <h4>Histórias Publicadas</h4>
+                        <p>Carregando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content" data-content="seguidores">
+            <div class="text-center" style="padding: 60px; color: var(--blue-gray);">
+                <p style="font-size: 60px; margin-bottom: 20px;">👥</p>
+                <h3 style="margin-bottom: 10px;">Lista de Seguidores</h3>
+                <p>Em breve você poderá ver todos os seus seguidores aqui!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon">
+                        <img src="coisas/images/logo.png" alt="Catbook Logo">
+                    </div>
+                    Catbook
+                </div>
+                <p class="footer-desc">O lar das melhores histórias da internet. Leia, escreva e compartilhe narrativas em uma comunidade acolhedora.</p>
+                <div class="footer-social">
+                    <div class="social-icon">📘</div>
+                    <div class="social-icon">🐦</div>
+                    <div class="social-icon">📸</div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Plataforma</h4>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Como funciona</a></li>
+                    <li><a href="#">Para escritores</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Diretrizes</a></li>
+                    <li><a href="#">Segurança</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>💫 2026 Catbook. Plataforma criada com amor e ronronos.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Cat -->
+    <div class="floating-cat" title="Voltar ao topo">🐱</div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/perfil.js"></script>
+</body>
+</html>

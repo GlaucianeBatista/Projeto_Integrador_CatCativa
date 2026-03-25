@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Obra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #C9D3EA 0%, #F2F2F2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(63, 66, 196, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4C4FD6 0%, #5B5EDC 100%);
+            padding: 20px;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .back-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+                .delete-work-button {
+                    position: absolute;
+                    right: 20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(255, 255, 255, 0.2);
+                    border: none;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .delete-work-button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-50%) scale(1.1);
+                }
+
+                .delete-work-button img {
+                    width: 24px;
+                    height: 24px;
+                    filter: brightness(0) invert(1);
+                }
+
+        .header h1 {
+                    color: white;
+                    text-align: center;
+            font-size: 2.5em;
+                    font-weight: bold;
+                }
+
+        .content {
+            padding: 30px;
+                }
+
+        .work-info {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+                }
+
+        .cover-section {
+            position: relative;
+                }
+
+        .cover-image {
+            width: 100%;
+            height: 400px;
+            background: #C9D3EA;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5B5EDC;
+            font-size: 1.2em;
+            border: 2px dashed #9AAAD1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cover-image:hover {
+            border-color: #5B5EDC;
+            background: #9AAAD1;
+            color: white;
+        }
+
+        .mature-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #D4ED3F;
+            color: #3F42C4;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .details-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #3F42C4;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px;
+            border: 2px solid #C9D3EA;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #5B5EDC;
+        }
+
+        .genre-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .genre-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 2px solid #C9D3EA;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .genre-option:hover {
+            border-color: #5B5EDC;
+            background: #F2F2F2;
+        }
+
+        .genre-option.selected {
+            border-color: #4C4FD6;
+            background: #9AAAD1;
+            color: white;
+        }
+
+        .genre-option input[type="radio"] {
+            display: none;
+        }
+
+        .genre-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            border: 2px solid #C9D3EA;
+            border-radius: 8px;
+            min-height: 50px;
+            align-items: center;
+        }
+
+        .tag {
+            background: #D4ED3F;
+            color: #3F42C4;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag .remove-tag {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .status-btn.completed {
+            background: #CBEA3A;
+            color: #3F42C4;
+        }
+
+        .status-btn.ongoing {
+            background: #F2F2F2;
+            color: #3F42C4;
+        }
+
+        .status-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #5B5EDC;
+        }
+
+        .series-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #F2F2F2;
+            border-radius: 10px;
+        }
+
+        .add-series-btn {
+            background: #5B5EDC;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-series-btn:hover {
+            background: #4C4FD6;
+            transform: translateY(-2px);
+        }
+
+        .chapters-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #F2F2F2;
+            border-radius: 10px;
+        }
+
+        .chapters-container {
+            margin-bottom: 20px;
+        }
+
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #C9D3EA;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-item:hover {
+            border-color: #5B5EDC;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(91, 94, 220, 0.1);
+        }
+
+        .chapter-info {
+            flex: 1;
+        }
+
+        .chapter-title {
+            font-weight: bold;
+            color: #3F42C4;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .chapter-preview {
+            color: #666;
+            font-size: 0.9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 300px;
+        }
+
+        .chapter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #D4ED3F;
+            color: #3F42C4;
+        }
+
+        .edit-btn:hover {
+            background: #CBEA3A;
+            transform: scale(1.1);
+        }
+
+        .delete-btn {
+            background: #FA5252;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #E03131;
+            transform: scale(1.1);
+        }
+
+        .action-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .add-chapter-btn {
+            width: 100%;
+            padding: 15px;
+            background: #5B5EDC;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-chapter-btn:hover {
+            background: #4C4FD6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 79, 214, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #3F42C4;
+            font-size: 1.5em;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel {
+            background: #F2F2F2;
+            color: #3F42C4;
+        }
+
+        .btn-confirm {
+            background: #5B5EDC;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .series-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #C9D3EA;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .series-item {
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .series-item:hover {
+            background: #F2F2F2;
+        }
+
+        .series-item.selected {
+            background: #9AAAD1;
+            color: white;
+        }
+
+        .delete-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+
+        .delete-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .delete-modal h3 {
+            color: #FA5252;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .delete-modal p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .delete-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .delete-modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .btn-no {
+            background: #F2F2F2;
+            color: #3F42C4;
+        }
+
+        .btn-yes {
+            background: #FA5252;
+            color: white;
+        }
+
+        .delete-modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .delete-work-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+        }
+
+        .delete-work-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .delete-work-modal h3 {
+            color: #FA5252;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .delete-work-modal p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .delete-work-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .delete-work-modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .btn-no-work {
+            background: #F2F2F2;
+            color: #3F42C4;
+        }
+
+        .btn-yes-work {
+            background: #FA5252;
+            color: white;
+        }
+
+        .delete-work-modal-btn:hover {
+            transform: translateY(0px);
+        }
+
+        @media (max-width: 768px) {
+            .work-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .genre-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <img src="https://cdn-icons-png.flaticon.com/512/5774/5774594.png" alt="Voltar">
+                        </button>
+            <h1>Detalhes da Obra</h1>
+            <button class="delete-work-button" onclick="deleteWork()">
+                <img src="https://cdn-icons-png.flaticon.com/512/17/17152.png" alt="Deletar obra">
+                        </button>
+                    </div>
+
+        <div class="content">
+            <div class="work-info">
+                <div class="cover-section">
+                    <div class="cover-image" id="coverImage">
+                        Clique para adicionar capa
+                </div>
+                    <div class="mature-badge" id="matureBadge">+18</div>
+                </div>
+
+                <div class="details-section">
+                    <div class="form-group">
+                        <label for="workTitle">Nome da Obra</label>
+                        <input type="text" id="workTitle" placeholder="Digite o nome da obra">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="workDescription">Descrição da Obra</label>
+                        <textarea id="workDescription" rows="4" placeholder="Descreva sua obra"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="workCategory">Categoria</label>
+                        <input type="text" id="workCategory" placeholder="Ex: Literatura, Mangá, etc.">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="workLanguage">Idioma</label>
+                        <select id="workLanguage">
+                            <option value="pt">Português</option>
+                            <option value="en">Inglês</option>
+                            <option value="es">Espanhol</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="matureContent" onchange="toggleMatureBadge()">
+                        <label for="matureContent">Conteúdo Maduro (+18)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Gênero Literário</label>
+                <div class="genre-section" id="genreSection">
+                    <!-- Gêneros serão inseridos via JavaScript -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                <div class="tags-input" id="tagsInput">
+                    <input type="text" class="tag-input" placeholder="Digite uma tag e pressione Enter" onkeypress="addTag(event)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Status da Obra</label>
+                <div class="status-buttons">
+                    <button class="status-btn ongoing active" onclick="setStatus('ongoing')">Em Andamento</button>
+                    <button class="status-btn completed" onclick="setStatus('completed')">Concluído</button>
+                </div>
+            </div>
+
+            <div class="series-section">
+                <button class="add-series-btn" onclick="openSeriesModal()">Adicionar à Série</button>
+            </div>
+
+            <div class="chapters-section">
+                <h3 style="color: #3F42C4; margin-bottom: 20px; font-size: 1.5em;">Capítulos</h3>
+                <div class="chapters-container" id="chaptersContainer">
+                    <!-- Capítulos serão inseridos via JavaScript -->
+                </div>
+                <button class="add-chapter-btn" onclick="addNewChapter()">
+                    <span style="font-size: 1.2em; margin-right: 8px;">+</span>
+                    Adicionar Novo Capítulo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para seleção de série -->
+    <div class="modal" id="seriesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Adicionar à Série</h3>
+            </div>
+            <div class="form-group">
+                <label>Selecione uma série existente:</label>
+                <div class="series-list" id="seriesList">
+                    <div class="series-item" onclick="selectSeries(this)">Série Exemplo 1</div>
+                    <div class="series-item" onclick="selectSeries(this)">Série Exemplo 2</div>
+                </div>
+            </div>
+            <div style="margin: 20px 0;">
+                <button class="btn btn-confirm" onclick="openNewSeriesModal()">Criar Nova Série</button>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="closeModal('seriesModal')">Cancelar</button>
+                <button class="btn btn-confirm" onclick="confirmSeries()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para criar nova série -->
+    <div class="modal" id="newSeriesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Nova Série</h3>
+            </div>
+            <div class="form-group">
+                <label for="seriesName">Nome da Série</label>
+                <input type="text" id="seriesName" placeholder="Digite o nome da série">
+            </div>
+            <div class="form-group">
+                <label for="seriesAge">Classificação de Idade</label>
+                <select id="seriesAge">
+                    <option value="livre">Livre</option>
+                    <option value="10">10+</option>
+                    <option value="12">12+</option>
+                    <option value="14">14+</option>
+                    <option value="16">16+</option>
+                    <option value="18">18+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seriesGenres">Gêneros Destaque</label>
+                <input type="text" id="seriesGenres" placeholder="Ex: Romance, Fantasia, Aventura">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="closeModal('newSeriesModal')">Cancelar</button>
+                <button class="btn btn-confirm" onclick="createNewSeries()">Concluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para exclusão de capítulo -->
+    <div class="delete-modal" id="deleteModal">
+        <div class="delete-modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Deseja excluir permanentemente esse capítulo?</p>
+            <div class="delete-modal-buttons">
+                <button class="delete-modal-btn btn-no" onclick="closeDeleteModal()">Não</button>
+                <button class="delete-modal-btn btn-yes" onclick="confirmDelete()">Sim</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para exclusão da obra -->
+    <div class="delete-work-modal" id="deleteWorkModal">
+        <div class="delete-work-modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Deseja excluir permanentemente esse trabalho?</p>
+            <div class="delete-work-modal-buttons">
+                <button class="delete-work-modal-btn btn-no-work" onclick="closeDeleteWorkModal()">Não</button>
+                <button class="delete-work-modal-btn btn-yes-work" onclick="confirmDeleteWork()">Sim</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const genres = [
+            { name: 'Ação', image: 'https://i.pinimg.com/1200x/48/0a/c5/480ac50de26886608437a50478cb208e.jpg' },
+            { name: 'Aventura', image: 'https://i.pinimg.com/1200x/0e/ec/80/0eec80dd9ceec7a675dc0c9f487d4cb5.jpg' },
+            { name: 'Comédia', image: 'https://i.pinimg.com/736x/ff/62/11/ff6211149fc9d6c451becb2686a7bcf8.jpg' },
+            { name: 'Conto', image: 'https://i.pinimg.com/736x/47/1b/9e/471b9e7fa0c7e384cb9b36ad9311a1b8.jpg' },
+            { name: 'Crônica', image: 'https://i.pinimg.com/736x/55/4d/26/554d263d624d19a723c71c4b1131befa.jpg' },
+            { name: 'Drabs e Drabble', image: 'https://i.pinimg.com/1200x/b3/50/4a/b3504a273d4e83b273dea85e199fdfc2.jpg' },
+            { name: 'Drama/Tragédia', image: 'https://i.pinimg.com/1200x/b9/c1/71/b9c1715a78be7f83dd1d0c076c901e18.jpg' },
+            { name: 'Esporte', image: 'https://i.pinimg.com/736x/74/07/0c/74070cf92700fb887fc8811466c146ac.jpg' },
+            { name: 'Fábula', image: 'https://i.pinimg.com/1200x/d1/d0/f4/d1d0f4a24fc7b5a95df74b14fa6a1783.jpg' },
+            { name: 'Fantasia', image: 'https://i.pinimg.com/736x/b1/20/be/b120bef2be4819a4b9c96b318ca1303b.jpg' },
+            { name: 'Ficção', image: 'https://i.pinimg.com/736x/44/9c/52/449c529152e7bd9922c253027ca3a207.jpg' },
+            { name: 'Ficção Adolescente', image: 'https://i.pinimg.com/736x/a1/1f/95/a11f954e2372eef0ca972b26e2e5261c.jpg' },
+            { name: 'Ficção Científica', image: 'https://i.pinimg.com/736x/cd/62/78/cd627847203c58b84b4d2ff507c4d896.jpg' },
+            { name: 'Gay/Boys Love', image: 'https://i.pinimg.com/1200x/d4/60/1c/d4601ca24207e6ca7e5e5e7f5c06b15b.jpg' },
+            { name: 'Lésbica/Girls Love', image: 'https://i.pinimg.com/1200x/53/9e/60/539e60b4e13f2028d7e09ce5305453cc.jpg' },
+            { name: 'Light Novel e Web Novel', image: 'https://i.pinimg.com/736x/20/ba/be/20babe6b064f08036152db60751c935e.jpg' },
+            { name: 'Poesia', image: 'https://i.pinimg.com/736x/ee/4d/11/ee4d11ce0de9b2b80c8e422a8a1118f9.jpg' },
+            { name: 'Magia', image: 'https://i.pinimg.com/736x/4c/05/56/4c0556d53dd559d452ed8feaee1d33fb.jpg' },
+            { name: 'Mistério', image: 'https://i.pinimg.com/736x/b2/f1/7a/b2f17a0d7b73ade54da91dd4ad9ea116.jpg' },
+            { name: 'Policial', image: 'https://i.pinimg.com/736x/0b/c3/8c/0bc38c5f38635f48f56395d02c726bff.jpg' },
+            { name: 'Romance', image: 'https://i.pinimg.com/736x/ff/4e/04/ff4e042000f64210a51d9d24d5194b9b.jpg' },
+            { name: 'Sobrenatural', image: 'https://i.pinimg.com/1200x/11/b7/d9/11b7d9fdf765e89bed892c9db9784fd4.jpg' },
+            { name: 'Suspense', image: 'https://i.pinimg.com/736x/d2/c3/d7/d2c3d7d0d3ad162625ac444be1cac493.jpg' },
+            { name: 'Terror', image: 'https://i.pinimg.com/736x/4b/ba/c8/4bbac86f28374de83923fad183e777b7.jpg' },
+            { name: 'Universo Alternativo', image: 'https://i.pinimg.com/736x/a0/d1/90/a0d1906dcb23271847c051298e19c4ea.jpg' }
+        ];
+
+        let selectedGenre = null;
+        let selectedSeries = null;
+        let tags = [];
+        let chapterToDelete = null;
+
+        // Dados de exemplo para capítulos
+        let chapters = [
+            { id: 1, title: "Capítulo 1: O Início", content: "Conteúdo do primeiro capítulo..." },
+            { id: 2, title: "Capítulo 2: A Jornada", content: "Conteúdo do segundo capítulo..." },
+            { id: 3, title: "Capítulo 3: O Encontro", content: "Conteúdo do terceiro capítulo..." }
+        ];
+
+        function initializeGenres() {
+            const genreSection = document.getElementById('genreSection');
+            genres.forEach((genre, index) => {
+                const genreOption = document.createElement('div');
+                genreOption.className = 'genre-option';
+                genreOption.onclick = () => selectGenre(index);
+                
+                genreOption.innerHTML = `
+                    <input type="radio" name="genre" value="${genre.name}" id="genre${index}">
+                    <img src="${genre.image}" alt="${genre.name}" class="genre-image">
+                    <span>${genre.name}</span>
+                `;
+                
+                genreSection.appendChild(genreOption);
+            });
+        }
+
+        function initializeChapters() {
+            const container = document.getElementById('chaptersContainer');
+            if (chapters.length > 0) {
+                container.innerHTML = renderChapters();
+            } else {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">Nenhum capítulo adicionado ainda.</p>';
+            }
+        }
+
+        function renderChapters() {
+            return chapters.map(chapter => `
+                <div class="chapter-item">
+                    <div class="chapter-info">
+                        <div class="chapter-title">${chapter.title}</div>
+                        <div class="chapter-preview">${chapter.content.substring(0, 50)}...</div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="action-btn edit-btn" onclick="editChapter(${chapter.id})" title="Editar capítulo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Lapis-icon.png" alt="Editar">
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteChapter(${chapter.id})" title="Excluir capítulo">
+                            <img src="https://cdn-icons-png.flaticon.com/512/17/17152.png" alt="Excluir">
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateChaptersDisplay() {
+            const container = document.getElementById('chaptersContainer');
+            if (container) {
+                container.innerHTML = chapters.length > 0 ? renderChapters() : '<p style="color: #666; text-align: center; padding: 20px;">Nenhum capítulo adicionado ainda.</p>';
+            }
+        }
+
+        function selectGenre(index) {
+            document.querySelectorAll('.genre-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.genre-option')[index].classList.add('selected');
+            document.getElementById(`genre${index}`).checked = true;
+            selectedGenre = genres[index].name;
+        }
+
+        function toggleMatureBadge() {
+            const checkbox = document.getElementById('matureContent');
+            const badge = document.getElementById('matureBadge');
+            badge.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function addTag(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const input = event.target;
+                const tagText = input.value.trim();
+                
+                if (tagText && tagText.startsWith('#')) {
+                    const tag = document.createElement('div');
+                    tag.className = 'tag';
+                    tag.innerHTML = `
+                        ${tagText}
+                        <span class="remove-tag" onclick="removeTag(this)">×</span>
+                    `;
+                    
+                    input.parentNode.insertBefore(tag, input);
+                    tags.push(tagText);
+                    input.value = '';
+                }
+            }
+        }
+
+        function removeTag(element) {
+            const tag = element.parentNode;
+            const tagText = tag.textContent.replace('×', '');
+            tags = tags.filter(t => t !== tagText);
+            tag.remove();
+        }
+
+        function setStatus(status) {
+            document.querySelectorAll('.status-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (status === 'completed') {
+                document.querySelector('.status-btn.completed').classList.add('active');
+            } else {
+                document.querySelector('.status-btn.ongoing').classList.add('active');
+            }
+        }
+
+        function openSeriesModal() {
+            document.getElementById('seriesModal').style.display = 'block';
+        }
+
+        function openNewSeriesModal() {
+            document.getElementById('newSeriesModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function selectSeries(element) {
+            document.querySelectorAll('.series-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedSeries = element.textContent;
+        }
+
+        function confirmSeries() {
+            if (selectedSeries) {
+                alert(`Obra adicionada à série: ${selectedSeries}`);
+                closeModal('seriesModal');
+            } else {
+                alert('Por favor, selecione uma série.');
+            }
+        }
+
+        function createNewSeries() {
+            const seriesName = document.getElementById('seriesName').value;
+            const seriesAge = document.getElementById('seriesAge').value;
+            const seriesGenres = document.getElementById('seriesGenres').value;
+            
+            if (seriesName) {
+                const seriesList = document.getElementById('seriesList');
+                const newSeries = document.createElement('div');
+                newSeries.className = 'series-item';
+                newSeries.textContent = seriesName;
+                newSeries.onclick = () => selectSeries(newSeries);
+                seriesList.appendChild(newSeries);
+                
+                closeModal('newSeriesModal');
+                alert(`Nova série "${seriesName}" criada com sucesso!`);
+                
+                // Limpar campos
+                document.getElementById('seriesName').value = '';
+                document.getElementById('seriesAge').value = 'livre';
+                document.getElementById('seriesGenres').value = '';
+            } else {
+                alert('Por favor, preencha o nome da série.');
+            }
+        }
+
+        function addNewChapter() {
+            window.location.href = 'escrever.html?action=new';
+        }
+
+        function editChapter(chapterId) {
+            window.location.href = `escrever.html?action=edit&chapterId=${chapterId}`;
+        }
+
+        function deleteChapter(chapterId) {
+            chapterToDelete = chapterId;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            chapterToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (chapterToDelete) {
+                chapters = chapters.filter(chapter => chapter.id !== chapterToDelete);
+                updateChaptersDisplay();
+                closeDeleteModal();
+            }
+        }
+
+        function deleteWork() {
+            document.getElementById('deleteWorkModal').style.display = 'block';
+        }
+
+        function closeDeleteWorkModal() {
+            document.getElementById('deleteWorkModal').style.display = 'none';
+        }
+
+        function confirmDeleteWork() {
+            let savedWorks = JSON.parse(localStorage.getItem('savedWorks') || '[]');
+            const currentWorkId = new URLSearchParams(window.location.search).get('workId');
+            
+            if (currentWorkId) {
+                savedWorks = savedWorks.filter(work => work.id !== parseInt(currentWorkId));
+                localStorage.setItem('savedWorks', JSON.stringify(savedWorks));
+            }
+            
+            window.location.href = 'biblioteca.de.escritor.html';
+        }
+
+        function saveWork() {
+            const workData = {
+                id: Date.now(),
+                title: document.getElementById('workTitle').value || 'Obra sem título',
+                description: document.getElementById('workDescription').value || '',
+                category: document.getElementById('workCategory').value || '',
+                language: document.getElementById('workLanguage').value || 'pt',
+                genre: selectedGenre || '',
+                tags: tags,
+                status: document.querySelector('.status-btn.active').textContent.trim(),
+                matureContent: document.getElementById('matureContent').checked,
+                coverImage: document.getElementById('coverImage').style.backgroundImage || '',
+                series: selectedSeries || '',
+                chapters: chapters,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+    
+            let savedWorks = JSON.parse(localStorage.getItem('savedWorks') || '[]');
+            
+            const existingIndex = savedWorks.findIndex(work => work.id === workData.id);
+            if (existingIndex !== -1) {
+                savedWorks[existingIndex] = workData;
+            } else {
+                savedWorks.push(workData);
+            }
+            
+            localStorage.setItem('savedWorks', JSON.stringify(savedWorks));
+            return workData.id;
+        }
+
+        function goBack() {
+            saveWork();
+            window.location.href = 'perfil.html';
+        }
+
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGenres();
+            initializeChapters();
+            
+            // Adicionar funcionalidade de upload de capa
+            document.getElementById('coverImage').addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const coverImage = document.getElementById('coverImage');
+                            coverImage.style.backgroundImage = `url(${e.target.result})`;
+                            coverImage.style.backgroundSize = 'cover';
+                            coverImage.style.backgroundPosition = 'center';
+                            coverImage.textContent = '';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+        });
+
+        // Fechar modais ao clicar fora
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal, .delete-modal, .delete-work-modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

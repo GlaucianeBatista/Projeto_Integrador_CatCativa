@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar - Catbook</title>
+    <meta name="description" content="Descubra histórias incríveis no Catbook. Leia, explore e encontre suas próximas aventuras literárias.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="coisas/images/logo.png">
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="coisas/images/logo.png" alt="Catbook Logo">
+            </div>
+            Catbook
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="explorar.html" class="active">Explorar</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-secondary">Entrar</a>
+            <a href="login.html#cadastro" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <section style="margin-bottom: 40px;">
+            <h1 style="font-family: 'Quicksand', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 10px;">
+                Explorar Histórias 📚
+            </h1>
+            <p style="color: var(--blue-gray); font-size: 16px;">
+                Descubra novas histórias e autores incríveis
+            </p>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="🔍 Busque por histórias, autores ou tags...">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="filter-tags">
+                <span class="filter-tag active">Todas</span>
+                <span class="filter-tag">Romance</span>
+                <span class="filter-tag">Drama</span>
+                <span class="filter-tag">Poesia</span>
+                <span class="filter-tag">+18</span>
+                <span class="filter-tag">Fantasia</span>
+                <span class="filter-tag">Terror</span>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <div class="section-icon" style="background: var(--lime-yellow);">📂</div>
+                    Categorias
+                </h2>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💕</div>
+                    <h3 class="category-name">Romance</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎭</div>
+                    <h3 class="category-name">Drama</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">✨</div>
+                    <h3 class="category-name">Poesia</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🔞</div>
+                    <h3 class="category-name">+18</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories Grid Section -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">
+                    <div class="section-icon">📖</div>
+                    Todas as Histórias
+                </h2>
+                <div style="display: flex; gap: 10px;">
+                    <select class="filter-btn" style="border: 2px solid var(--light-blue); background: white; cursor: pointer;">
+                        <option value="recentes">Mais Recentes</option>
+                        <option value="visualizacoes">Mais Lidas</option>
+                        <option value="curtidas">Mais Curtidas</option>
+                        <option value="classificacao">Melhor Avaliadas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="content-grid" id="stories-grid">
+                <!-- Stories will be loaded dynamically -->
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--light-blue);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--lime-yellow);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--blue-violet);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--light-green);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: #FFB6C1;"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: #DDA0DD;"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Load More -->
+        <section style="text-align: center; margin-top: 40px;">
+            <button class="btn btn-secondary btn-lg" id="loadMoreBtn">
+                Carregar Mais Histórias ↓
+            </button>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon">
+                        <img src="coisas/images/logo.png" alt="Catbook Logo">
+                    </div>
+                    Catbook
+                </div>
+                <p class="footer-desc">O lar das melhores histórias da internet. Leia, escreva e compartilhe narrativas em uma comunidade acolhedora.</p>
+                <div class="footer-social">
+                    <div class="social-icon">📘</div>
+                    <div class="social-icon">🐦</div>
+                    <div class="social-icon">📸</div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Plataforma</h4>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Como funciona</a></li>
+                    <li><a href="#">Para escritores</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Diretrizes</a></li>
+                    <li><a href="#">Segurança</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>💫 2026 Catbook. Plataforma criada com amor e ronronos.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Cat -->
+    <div class="floating-cat" title="Voltar ao topo">🐱</div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/explorar.js"></script>
+</body>
+</html>

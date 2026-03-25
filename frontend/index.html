@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catbook - Onde histórias ganham vida</title>
+    <meta name="description" content="Catbook - Descubra, leia e escreva histórias incríveis em uma comunidade acolhedora feita para amantes de narrativas.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="coisas/images/logo.png">
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="coisas/images/logo.png" alt="Catbook Logo">
+            </div>
+            Catbook
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Início</a></li>
+            <li><a href="explorar.html">Explorar</a></li>
+            <li><a href="login.html">Comunidade</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-secondary">Entrar</a>
+            <a href="login.html#cadastro" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Onde histórias <span>ganham vida</span> e emoções transbordam! 💫</h1>
+                <p>Descubra, leia e escreva histórias incríveis em uma comunidade acolhedora feita para os amantes de narrativas. No Catbook, cada palavra conta uma história.</p>
+                <div class="hero-buttons">
+                    <a href="explorar.html" class="btn btn-primary btn-lg">📖 Começar a Ler</a>
+                    <a href="login.html#cadastro" class="btn btn-secondary btn-lg">✍️ Escrever História</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Histórias</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0+</div>
+                        <div class="stat-label">Leitores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Escritores</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card hero-card-1">
+                    <div class="card-header">
+                        <div class="card-avatar"></div>
+                        <div class="card-info">
+                            <h4>Please, Feel The Same</h4>
+                            <span>@ana_escritora</span>
+                        </div>
+                    </div>
+                    <div class="card-content"></div>
+                    <div class="card-tags">
+                        <span class="tag">Romance</span>
+                        <span class="tag">+18</span>
+                    </div>
+                </div>
+                <div class="hero-card hero-card-2">
+                    <div class="card-header">
+                        <div class="card-avatar"></div>
+                        <div class="card-info">
+                            <h4>Amor Unilateral</h4>
+                            <span>@pedro_poeta</span>
+                        </div>
+                    </div>
+                    <div class="card-content"></div>
+                    <div class="card-tags">
+                        <span class="tag">Poesia</span>
+                        <span class="tag">Drama</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="🔍 Busque por histórias, autores ou tags...">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="filter-tags">
+                <span class="filter-tag active">Todas</span>
+                <span class="filter-tag">Romance</span>
+                <span class="filter-tag">Drama</span>
+                <span class="filter-tag">Poesia</span>
+                <span class="filter-tag">+18</span>
+            </div>
+        </section>
+
+        <!-- Featured Stories Section -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">
+                    <div class="section-icon">🔥</div>
+                    Histórias em Destaque
+                </h2>
+                <a href="explorar.html" class="section-link">Ver todas →</a>
+            </div>
+            <div class="content-grid" id="stories-grid">
+                <!-- Stories will be loaded dynamically -->
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--light-blue);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--lime-yellow);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="story-card skeleton">
+                    <div class="story-cover" style="background: var(--blue-violet);"></div>
+                    <div class="story-content">
+                        <div style="height: 20px; background: var(--light-blue); border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="height: 14px; background: var(--white-gray); border-radius: 5px; width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <div class="section-icon" style="background: var(--lime-yellow);">📚</div>
+                    Categorias
+                </h2>
+            </div>
+            <div class="categories-grid">
+                <!-- Categories will be loaded dynamically -->
+                <div class="category-card">
+                    <div class="category-icon">💕</div>
+                    <h3 class="category-name">Romance</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎭</div>
+                    <h3 class="category-name">Drama</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">✨</div>
+                    <h3 class="category-name">Poesia</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🔞</div>
+                    <h3 class="category-name">+18</h3>
+                    <p class="category-count">Carregando...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section class="community-section">
+            <div class="community-content">
+                <div class="community-text">
+                    <h2>Junte-se à nossa comunidade! 💫</h2>
+                    <p>Conecte-se com outros amantes de histórias, participe de eventos, desafios de escrita e muito mais. No Catbook, você faz parte de uma família de sonhadores e contadores de histórias.</p>
+                    <a href="login.html#cadastro" class="btn">Explorar Comunidade →</a>
+                </div>
+                <div class="community-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-title">Desafios Mensais</div>
+                        <div class="feature-desc">Participe e ganhe prêmios</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-title">Grupos de Leitura</div>
+                        <div class="feature-desc">Discuta suas histórias favoritas</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-title">Concursos de Capas</div>
+                        <div class="feature-desc">Mostre sua criatividade</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📖</div>
+                        <div class="feature-title">Workshops</div>
+                        <div class="feature-desc">Aprenda com escritores experientes</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writing Section -->
+        <section class="writing-section">
+            <div class="writing-icon">✍️</div>
+            <h2>Tem uma história para contar?</h2>
+            <p>Na Catbook, qualquer um pode ser escritor. Nossas ferramentas intuitivas ajudam você a dar vida às suas ideias e compartilhá-las com milhares de leitores.</p>
+            <a href="login.html#cadastro" class="btn btn-primary btn-lg">Começar a Escrever Agora 🚀</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon">
+                        <img src="coisas/images/logo.png" alt="Catbook Logo">
+                    </div>
+                    Catbook
+                </div>
+                <p class="footer-desc">O lar das melhores histórias da internet. Leia, escreva e compartilhe narrativas em uma comunidade acolhedora.</p>
+                <div class="footer-social">
+                    <div class="social-icon">📘</div>
+                    <div class="social-icon">🐦</div>
+                    <div class="social-icon">📸</div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Plataforma</h4>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Como funciona</a></li>
+                    <li><a href="#">Para escritores</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Diretrizes</a></li>
+                    <li><a href="#">Segurança</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>💫 2026 Catbook. Plataforma criada com amor e ronronos.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Cat -->
+    <div class="floating-cat" title="Voltar ao topo">🐱</div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+/* ========================================
+   CATBOOK - ESTILOS DE LEITURA
+   Estilo Kindle + Comentários Wattpad
+   ======================================== */
+
+/* ========================================
+   LAYOUT PRINCIPAL DE LEITURA
+   ======================================== */
+.reading-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ========================================
+   HEADER DE LEITURA
+   ======================================== */
+.reading-header {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reading-header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.reading-back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    border: none;
+    font-size: 18px;
+}
+
+.reading-back-btn:hover {
+    background: var(--blue-violet);
+    color: white;
+}
+
+.reading-title-info h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 3px;
+}
+
+.reading-title-info span {
+    font-size: 13px;
+    color: var(--blue-gray);
+}
+
+.reading-header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.reading-action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--white-gray);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: 18px;
+}
+
+.reading-action-btn:hover {
+    background: var(--light-blue);
+}
+
+.reading-action-btn.active {
+    background: var(--blue-violet);
+    color: white;
+}
+
+/* ========================================
+   ÁREA DE LEITURA (ESTILO KINDLE)
+   ======================================== */
+.reading-area {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+/* Modo escuro para leitura */
+.reading-area.dark-mode {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.reading-area.dark-mode .reading-content h2 {
+    color: #e0e0e0;
+}
+
+.reading-area.dark-mode .reading-content p {
+    color: #c0c0c0;
+}
+
+.reading-progress-bar {
+    height: 4px;
+    background: var(--light-blue);
+    position: relative;
+}
+
+.reading-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-violet), var(--lime-yellow));
+    transition: width 0.3s ease;
+}
+
+.reading-content {
+    padding: 50px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Fontes para leitura */
+.reading-content.font-serif {
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.reading-content.font-sans {
+    font-family: 'Nunito', sans-serif;
+}
+
+.reading-content.font-mono {
+    font-family: 'Courier New', monospace;
+}
+
+/* Tamanhos de fonte */
+.reading-content.size-small {
+    font-size: 14px;
+}
+
+.reading-content.size-medium {
+    font-size: 18px;
+}
+
+.reading-content.size-large {
+    font-size: 22px;
+}
+
+.reading-content h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.reading-content p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.reading-content hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--light-blue), transparent);
+    margin: 40px 0;
+}
+
+/* ========================================
+   NAVEGAÇÃO DE CAPÍTULOS
+   ======================================== */
+.reading-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-top: 2px solid var(--light-blue);
+    background: var(--white-gray);
+}
+
+.nav-chapter-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: white;
+    border: 2px solid var(--light-blue);
+    border-radius: 25px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-violet);
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.nav-chapter-btn:hover:not(:disabled) {
+    background: var(--blue-violet);
+    border-color: var(--blue-violet);
+    color: white;
+}
+
+.nav-chapter-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chapter-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter-selector select {
+    padding: 10px 15px;
+    border: 2px solid var(--light-blue);
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    outline: none;
+}
+
+/* ========================================
+   CONFIGURAÇÕES DE LEITURA
+   ======================================== */
+.reading-settings {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    gap: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.reading-settings.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-label {
+    font-size: 12px;
+    color: var(--blue-gray);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.settings-options {
+    display: flex;
+    gap: 8px;
+}
+
+.settings-btn {
+    padding: 8px 12px;
+    background: var(--white-gray);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.settings-btn:hover,
+.settings-btn.active {
+    border-color: var(--blue-violet);
+    color: var(--blue-violet);
+}
+
+/* ========================================
+   SIDEBAR DE COMENTÁRIOS (ESTILO WATTPAD)
+   ======================================== */
+.comments-sidebar {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    position: sticky;
+    top: 100px;
+}
+
+.comments-header {
+    padding: 20px;
+    border-bottom: 2px solid var(--light-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comments-header h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comments-count {
+    background: var(--lime-yellow);
+    color: var(--dark-text);
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.comments-sort {
+    display: flex;
+    gap: 5px;
+}
+
+.sort-btn {
+    padding: 6px 12px;
+    background: var(--white-gray);
+    border: none;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.sort-btn.active {
+    background: var(--blue-violet);
+    color: white;
+}
+
+.comments-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 12px;
+    padding: 15px;
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    transition: var(--transition-normal);
+}
+
+.comment-item:hover {
+    background: var(--white-gray);
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--light-blue), var(--blue-violet));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-author {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--dark-text);
+}
+
+.comment-time {
+    font-size: 11px;
+    color: var(--blue-gray);
+}
+
+.comment-text {
+    font-size: 14px;
+    color: var(--dark-text);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.comment-stickers {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.comment-sticker {
+    font-size: 18px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-action {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--blue-gray);
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.comment-action:hover {
+    color: var(--blue-violet);
+}
+
+.comment-action.liked {
+    color: var(--error);
+}
+
+/* ========================================
+   INPUT DE COMENTÁRIO
+   ======================================== */
+.comment-input-area {
+    padding: 15px;
+    border-top: 2px solid var(--light-blue);
+    background: var(--white-gray);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.comment-input-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--light-blue);
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+    min-height: 44px;
+    max-height: 120px;
+}
+
+.comment-input:focus {
+    border-color: var(--blue-violet);
+}
+
+.comment-submit-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--blue-violet);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-submit-btn:hover {
+    background: var(--blue-gray);
+}
+
+.comment-stickers-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sticker-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: white;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.sticker-btn:hover {
+    border-color: var(--blue-violet);
+    transform: scale(1.1);
+}
+
+.sticker-btn.selected {
+    background: var(--light-blue);
+    border-color: var(--blue-violet);
+}
+
+/* ========================================
+   INFO DA HISTÓRIA NA SIDEBAR
+   ======================================== */
+.story-info-sidebar {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+.story-info-cover {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--light-blue), var(--blue-gray));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.story-info-cover-icon {
+    font-size: 60px;
+    opacity: 0.5;
+}
+
+.story-info-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+}
+
+.story-info-author {
+    font-size: 14px;
+    color: var(--blue-gray);
+    margin-bottom: 15px;
+}
+
+.story-info-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+    border-top: 1px solid var(--light-blue);
+}
+
+.story-info-stat {
+    text-align: center;
+}
+
+.story-info-stat-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue-violet);
+}
+
+.story-info-stat-label {
+    font-size: 11px;
+    color: var(--blue-gray);
+}
+
+.story-info-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.story-info-actions .btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* ========================================
+   MODAL DE FIGURINHAS
+   ======================================== */
+.stickers-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.stickers-modal.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.stickers-modal-content {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.stickers-modal.show .stickers-modal-content {
+    transform: scale(1);
+}
+
+.stickers-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stickers-modal-header h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.stickers-modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--white-gray);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.stickers-modal-close:hover {
+    background: var(--light-blue);
+}
+
+/* ========================================
+   RESPONSIVIDADE DE LEITURA
+   ======================================== */
+@media (max-width: 1024px) {
+    .reading-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .comments-sidebar {
+        position: fixed;
+        right: -400px;
+        top: 0;
+        width: 400px;
+        height: 100vh;
+        z-index: 1000;
+        border-radius: 0;
+        transition: right 0.3s ease;
+    }
+    
+    .comments-sidebar.show {
+        right: 0;
+    }
+    
+    .comments-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .comments-overlay.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    .reading-content {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reading-header {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .reading-title-info h1 {
+        font-size: 16px;
+    }
+    
+    .reading-content {
+        padding: 20px;
+    }
+    
+    .reading-content h2 {
+        font-size: 22px;
+    }
+    
+    .reading-content p {
+        font-size: 16px;
+    }
+    
+    .reading-navigation {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .nav-chapter-btn span {
+        display: none;
+    }
+    
+    .reading-settings {
+        flex-direction: column;
+        gap: 15px;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        transform: translateY(150%);
+    }
+    
+    .reading-settings.show {
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   SCROLLBAR PERSONALIZADA
+   ======================================== */
+.comments-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+    background: var(--white-gray);
+    border-radius: 3px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background: var(--light-blue);
+    border-radius: 3px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-gray);
+}

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Documentos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F2F2F2;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: #9AAAD1;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .chapter-input {
+            background: white;
+            border: 2px solid #C9D3EA;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #3F42C4;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        .chapter-input:focus {
+            outline: none;
+            border-color: #4C4FD6;
+            box-shadow: 0 0 0 3px rgba(76, 79, 214, 0.1);
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tool-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px;
+            border-radius: 6px;
+            background: #F2F2F2;
+        }
+
+        .tool-btn {
+            background: white;
+            border: 1px solid #C9D3EA;
+            border-radius: 4px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
+        .tool-btn:hover {
+            background: #C9D3EA;
+            border-color: #4C4FD6;
+        }
+
+        .tool-btn.active {
+            background: #4C4FD6;
+            color: white;
+            border-color: #3F42C4;
+        }
+
+        .tool-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .font-size-input {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid #C9D3EA;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .color-picker {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #C9D3EA;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #000;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 120px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1001;
+            top: 100%;
+            left: 0;
+            border: 1px solid #C9D3EA;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #F2F2F2;
+        }
+
+        .dropdown-item:hover {
+            background: #C9D3EA;
+        }
+
+        .offline-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #C9D3EA;
+        }
+
+        .offline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid #C9D3EA;
+        }
+
+        .offline-dot.active {
+            background: #D4ED3F;
+            border-color: #CBEA3A;
+        }
+
+        .main-content {
+            margin-top: 140px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 140px);
+        }
+
+        .pages-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 794px;
+        }
+
+        .page {
+            width: 794px;
+            min-height: 1123px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 75px;
+            position: relative;
+            cursor: text;
+            border-radius: 4px;
+        }
+
+        .page-content {
+            width: 100%;
+            height: 100%;
+            min-height: 973px;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .page-content:focus {
+            outline: none;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #4C4FD6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+
+        .back-btn:hover {
+            background: #3F42C4;
+        }
+
+        .back-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .media-controls {
+            position: absolute;
+            background: white;
+            border: 1px solid #C9D3EA;
+            border-radius: 4px;
+            padding: 8px;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .media-controls.show {
+            display: block;
+        }
+
+        .media-controls button {
+            background: #4C4FD6;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .media-controls input[type="range"] {
+            width: 100px;
+            margin: 4px;
+        }
+
+        .media-element {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .media-element.selected {
+            border-color: #4C4FD6;
+        }
+
+        .history-panel {
+            position: fixed;
+            right: -300px;
+            top: 140px;
+            width: 300px;
+            height: calc(100vh - 140px);
+            background: white;
+            box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .history-panel.show {
+            right: 0;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-bottom: 1px solid #F2F2F2;
+            cursor: pointer;
+        }
+
+        .history-item:hover {
+            background: #C9D3EA;
+        }
+
+        .comments-panel {
+            position: fixed;
+            right: -300px;
+            top: 140px;
+            width: 300px;
+            height: calc(100vh - 140px);
+            background: white;
+            box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .comments-panel.show {
+            right: 0;
+        }
+
+        .comment-item {
+            background: #F2F2F2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #4C4FD6;
+        }
+
+        @media (max-width: 850px) {
+            .page {
+                width: 90vw;
+                max-width: 794px;
+                padding: 40px 30px;
+            }
+            
+            .toolbar {
+                gap: 4px;
+            }
+            
+            .tool-group {
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="goBack()">
+       <link rel="icon" type="image/png" href="coisas/images/logo.png">
+    </button>
+
+    <div class="header">
+        <input type="text" class="chapter-input" placeholder="Nome do Capítulo" id="chapterTitle">
+        
+        <div class="toolbar">
+            <div class="tool-group">
+                <div class="dropdown">
+                    <button class="tool-btn" onclick="toggleFontSize()">
+                        <span style="font-weight: bold;">A</span>
+                    </button>
+                    <div class="dropdown-content" id="fontSizeDropdown">
+                        <div class="dropdown-item" onclick="setFontSize(12)">12</div>
+                        <div class="dropdown-item" onclick="setFontSize(14)">14</div>
+                        <div class="dropdown-item" onclick="setFontSize(16)">16</div>
+                        <div class="dropdown-item" onclick="setFontSize(18)">18</div>
+                        <div class="dropdown-item" onclick="setFontSize(20)">20</div>
+                        <div class="dropdown-item" onclick="setFontSize(24)">24</div>
+                        <input type="number" class="font-size-input" placeholder="Tamanho" onchange="setCustomFontSize(this.value)">
+                    </div>
+                </div>
+                
+                <input type="color" class="color-picker" id="textColor" onchange="changeTextColor(this.value)">
+            </div>
+
+            <div class="tool-group">
+                <button class="tool-btn" onclick="toggleBold()">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnNmsPwJqBlHf13xzEGkvyMNtUeRQJAdDSw&s" alt="Negrito">
+                </button>
+                <button class="tool-btn" onclick="toggleItalic()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25392.png" alt="Itálico">
+                </button>
+                <button class="tool-btn" onclick="toggleUnderline()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/67/67957.png" alt="Sublinhado">
+                </button>
+            </div>
+
+            <div class="tool-group">
+                <button class="tool-btn" onclick="alignLeft()">
+                    <img src="https://cdn-icons-png.freepik.com/512/45/45157.png" alt="Esquerda">
+                </button>
+                <button class="tool-btn" onclick="alignCenter()">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUsiL6A4JFX_8AO0iSfHYnXSgYqkYw5zq1MA&s" alt="Centro">
+                </button>
+                <button class="tool-btn" onclick="alignRight()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/58/58949.png" alt="Direita">
+                </button>
+                <button class="tool-btn" onclick="alignJustify()">
+                    <img src="https://cdn-icons-png.flaticon.com/256/54/54586.png" alt="Justificar">
+                </button>
+            </div>
+
+            <div class="tool-group">
+                <button class="tool-btn" onclick="saveDocument()">💾</button>
+                <button class="tool-btn" onclick="toggleHistory()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/32/32223.png" alt="Histórico">
+                </button>
+                <button class="tool-btn" onclick="toggleComments()">
+                    <img src="https://cdn-icons-png.freepik.com/512/48/48733.png" alt="Comentários">
+                </button>
+                <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*,audio/*,.gif" onchange="insertMedia(this)">
+                <button class="tool-btn" onclick="document.getElementById('fileInput').click()">
+                    <img src="https://images.icon-icons.com/912/PNG/512/attachment-file-button_icon-icons.com_71772.png" alt="Anexar">
+                </button>
+            </div>
+
+            <div class="offline-indicator" onclick="toggleOffline()">
+                <div class="offline-dot" id="offlineDot"></div>
+                <span>Offline</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="pages-container" id="pagesContainer">
+            <div class="page">
+                <div class="page-content" contenteditable="true" id="page1" oninput="handleInput(this)" onpaste="handlePaste(event)"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-panel" id="historyPanel">
+        <h3 style="color: #3F42C4; margin-bottom: 15px;">Histórico de Versões</h3>
+        <div id="historyList"></div>
+    </div>
+
+    <div class="comments-panel" id="commentsPanel">
+        <h3 style="color: #3F42C4; margin-bottom: 15px;">Comentários</h3>
+        <div id="commentsList">
+            <div class="comment-item">
+                <strong>Usuário:</strong> Exemplo de comentário no documento.
+            </div>
+        </div>
+    </div>
+
+    <div class="media-controls" id="mediaControls">
+        <button onclick="resizeMedia('small')">Pequeno</button>
+        <button onclick="resizeMedia('medium')">Médio</button>
+        <button onclick="resizeMedia('large')">Grande</button>
+        <br>
+        <button onclick="positionMedia('center')">Centro</button>
+        <button onclick="positionMedia('top-left')">Superior Esq.</button>
+        <button onclick="positionMedia('top-right')">Superior Dir.</button>
+        <button onclick="positionMedia('bottom-left')">Inferior Esq.</button>
+        <button onclick="positionMedia('bottom-right')">Inferior Dir.</button>
+        <br>
+        <button onclick="toggleLayer()">Camada</button>
+        <label>Opacidade:</label>
+        <input type="range" min="0.1" max="1" step="0.1" value="1" onchange="changeOpacity(this.value)">
+    </div>
+
+    <script>
+        let pageCount = 1;
+        let currentPage = 1;
+        let selectedMedia = null;
+        let documentHistory = [];
+        let isOffline = false;
+
+        function handleInput(element) {
+            const page = element.closest('.page');
+            const pageHeight = page.offsetHeight;
+            const contentHeight = element.scrollHeight;
+            
+            if (contentHeight > pageHeight - 150) {
+                addNewPage();
+            }
+            
+            saveToHistory();
+        }
+
+        function addNewPage() {
+            pageCount++;
+            const pagesContainer = document.getElementById('pagesContainer');
+            const newPage = document.createElement('div');
+            newPage.className = 'page';
+            newPage.innerHTML = `<div class="page-content" contenteditable="true" id="page${pageCount}" oninput="handleInput(this)" onpaste="handlePaste(event)"></div>`;
+            pagesContainer.appendChild(newPage);
+        }
+
+        function handlePaste(event) {
+            event.preventDefault();
+            const text = (event.clipboardData || window.clipboardData).getData('text');
+            document.execCommand('insertText', false, text);
+        }
+
+        function toggleFontSize() {
+            const dropdown = document.getElementById('fontSizeDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function setFontSize(size) {
+            document.execCommand('fontSize', false, '7');
+            const fontElements = document.querySelectorAll('font[size="7"]');
+            fontElements.forEach(el => {
+                el.removeAttribute('size');
+                el.style.fontSize = size + 'px';
+            });
+            document.getElementById('fontSizeDropdown').classList.remove('show');
+        }
+
+        function setCustomFontSize(size) {
+            if (size && size > 0) {
+                setFontSize(size);
+            }
+        }
+
+        function changeTextColor(color) {
+            document.execCommand('foreColor', false, color);
+        }
+
+        function toggleBold() {
+            document.execCommand('bold');
+        }
+
+        function toggleItalic() {
+            document.execCommand('italic');
+        }
+
+        function toggleUnderline() {
+            document.execCommand('underline');
+        }
+
+        function alignLeft() {
+            document.execCommand('justifyLeft');
+        }
+
+        function alignCenter() {
+            document.execCommand('justifyCenter');
+        }
+
+        function alignRight() {
+            document.execCommand('justifyRight');
+        }
+
+        function alignJustify() {
+            document.execCommand('justifyFull');
+        }
+
+        function saveDocument() {
+            const title = document.getElementById('chapterTitle').value;
+            const content = document.getElementById('pagesContainer').innerHTML;
+            const timestamp = new Date().toLocaleString();
+            
+            const documentData = {
+                title: title,
+                content: content,
+                timestamp: timestamp
+            };
+            
+            localStorage.setItem('document_' + Date.now(), JSON.stringify(documentData));
+            alert('Documento salvo com sucesso!');
+            saveToHistory();
+        }
+
+        function saveToHistory() {
+            const content = document.getElementById('pagesContainer').innerHTML;
+            const timestamp = new Date().toLocaleString();
+            
+            documentHistory.push({
+                content: content,
+                timestamp: timestamp
+            });
+            
+            if (documentHistory.length > 50) {
+                documentHistory.shift();
+            }
+            
+            updateHistoryPanel();
+        }
+
+        function updateHistoryPanel() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+            
+            documentHistory.slice(-10).reverse().forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `<strong>Versão ${documentHistory.length - index}</strong><br><small>${item.timestamp}</small>`;
+                historyItem.onclick = () => restoreVersion(documentHistory.length - index - 1);
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        function restoreVersion(index) {
+            if (documentHistory[index]) {
+                document.getElementById('pagesContainer').innerHTML = documentHistory[index].content;
+                alert('Versão restaurada!');
+            }
+        }
+
+        function toggleHistory() {
+            const panel = document.getElementById('historyPanel');
+            panel.classList.toggle('show');
+            document.getElementById('commentsPanel').classList.remove('show');
+        }
+
+        function toggleComments() {
+            const panel = document.getElementById('commentsPanel');
+            panel.classList.toggle('show');
+            document.getElementById('historyPanel').classList.remove('show');
+        }
+
+        function toggleOffline() {
+            isOffline = !isOffline;
+            const dot = document.getElementById('offlineDot');
+            if (isOffline) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        }
+
+        function insertMedia(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const focusedElement = document.activeElement;
+                let mediaElement;
+                
+                if (file.type.startsWith('image/')) {
+                    mediaElement = document.createElement('img');
+                    mediaElement.src = e.target.result;
+                } else if (file.type.startsWith('video/')) {
+                    mediaElement = document.createElement('video');
+                    mediaElement.src = e.target.result;
+                    mediaElement.controls = true;
+                } else if (file.type.startsWith('audio/')) {
+                    mediaElement = document.createElement('audio');
+                    mediaElement.src = e.target.result;
+                    mediaElement.controls = true;
+                }
+                
+                if (mediaElement) {
+                    mediaElement.className = 'media-element';
+                    mediaElement.style.maxWidth = '300px';
+                    mediaElement.onclick = function() {
+                        selectMedia(this);
+                    };
+                    
+                    if (focusedElement && focusedElement.classList.contains('page-content')) {
+                        focusedElement.appendChild(mediaElement);
+                    } else {
+                        document.getElementById('page1').appendChild(mediaElement);
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function selectMedia(element) {
+            document.querySelectorAll('.media-element').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            selectedMedia = element;
+            
+            const controls = document.getElementById('mediaControls');
+            controls.style.display = 'block';
+            controls.style.left = element.offsetLeft + 'px';
+            controls.style.top = (element.offsetTop + element.offsetHeight + 10) + 'px';
+        }
+
+        function resizeMedia(size) {
+            if (!selectedMedia) return;
+            
+            const sizes = {
+                'small': '150px',
+                'medium': '300px',
+                'large': '500px'
+            };
+            
+            selectedMedia.style.maxWidth = sizes[size];
+        }
+
+        function positionMedia(position) {
+            if (!selectedMedia) return;
+            
+            const positions = {
+                'center': { display: 'block', margin: '0 auto' },
+                'top-left': { float: 'left', margin: '0 10px 10px 0' },
+                'top-right': { float: 'right', margin: '0 0 10px 10px' },
+                'bottom-left': { float: 'left', margin: '10px 10px 0 0' },
+                'bottom-right': { float: 'right', margin: '10px 0 0 10px' }
+            };
+            
+            const pos = positions[position];
+            Object.assign(selectedMedia.style, pos);
+        }
+
+        function toggleLayer() {
+            if (!selectedMedia) return;
+            
+            const currentZ = selectedMedia.style.zIndex || '0';
+            selectedMedia.style.zIndex = currentZ === '0' ? '-1' : '0';
+        }
+
+        function changeOpacity(value) {
+            if (!selectedMedia) return;
+            selectedMedia.style.opacity = value;
+        }
+
+        function goBack() {
+            if (confirm('Deseja sair? Alterações não salvas serão perdidas.')) {
+                window.history.back();
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
+            
+            if (!event.target.closest('.media-element') && !event.target.closest('.media-controls')) {
+                document.getElementById('mediaControls').style.display = 'none';
+                document.querySelectorAll('.media-element').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                selectedMedia = null;
+            }
+        });
+
+        // Initialize cursor focus
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('page1').focus();
+        });
+
+        // Auto-save every 30 seconds
+        setInterval(saveToHistory, 30000);
+
+        //função para voltar a tela de detalhes da obra 
+        function sair() {
+         window.location.href = "perfil.html";
+        }
+
+    </script>
+</body>
+</html>
